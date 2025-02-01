@@ -183,3 +183,5 @@ jobs:
               run: |
                   sfdx force:source:deploy --manifest "manifest/package.xml" --postdestructivechanges "manifest/destructiveChangesPost.xml" -c -l NoTestRun --verbose
             #       fi
+
+            
