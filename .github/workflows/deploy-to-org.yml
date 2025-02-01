@@ -48,7 +48,7 @@ jobs:
         run: |
              echo "force://PlatformCLI::5Aep861pw2VNBY3IWaEWUabUa0ERBhboCJdMqyQFg6pU5_v2oZLKQ2ylPWHsiN5nDGvavREqUDIElYftvPbxOZ_@bakerip--patch.sandbox.my.salesforce.com" > ./SFDX_INTEGRATION_URL.txt
 
-            # Authenticate to org using the URL stored in the text file
+            # Authenticate to org using the URL stored in the text file 
       - name: 'Authenticate to Integration Org'
         run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
 
