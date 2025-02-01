@@ -1,0 +1,222 @@
+<!--
+  @description       : 
+  @author            : Sandeep Talari
+  @group             : 
+  @last modified on  : 02-01-2025
+  @last modified by  : Sandeep Talari
+-->
+
+<!-- sldsValidatorIgnore -->
+<template>
+    <!-- <lightning-card> -->
+        
+        <!-- <div slot="footer"> 
+                
+        </div> -->
+       <span onkeypress={enterkeyevent}>
+        <div>
+            <div class="slds-form-element">
+                
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container">
+                        
+                        <div class={txtclassname} data-id="resultBox" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                            <template if:true={Label}>
+                                <p class="slds-m-bottom_xx-small slds-p-top_xx-small slds-text-title slds-text-color_weak"><template if:true={required}><abbr title="required" class="slds-required">*</abbr></template>{Label}</p>
+                            </template>
+                            <template if:false={hasRecId}>
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                                    <lightning-input disabled={disabled} data-id="userinput" autocomplete={autocomplete} value={enteredText} type="search" variant={labelVariant} label={Label} name="searchText" onfocus={searchField} onchange={searchField} onblur={handleBlur} class="searchBox leftspace" placeholder={placeholder}></lightning-input>
+                                </div>
+                                <template if:true={noSelectionError}>
+                                <div class="slds-text-title slds-text-color_error slds-m-top_xxx-small">{noSelectionError}</div>
+                                </template>
+                            </template>
+                            <template if:true={hasRecId}>
+                                <template for:each={selectedRecords} for:item="serecord">
+                                    <div key={serecord.recId} class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                                        <span class={iconClass}>
+                                            <lightning-icon icon-name={iconName} ></lightning-icon>
+                                        </span>                                        
+                                        <lightning-input type="text" style="width: 100%;" variant={labelVariant} label={Label} value={serecord.recLabel}  disabled></lightning-input>
+                                        <button if:false={disabled} name={serecord.recId} type="button" class={btnClass} onclick={removeRecord}>
+                                            <lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+                                        </button>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:true={error}>
+                                <div class="slds-text-title slds-text-color_error slds-m-top_xxx-small">{error}</div>
+                            </template>
+                            <template if:false={hasRecId}>
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                                    <template for:each={selectedRecords} for:item="serecord">
+                                        <span key={serecord.recId}>
+                                        <lightning-pill label={serecord.recLabel} name={serecord.recId} onremove={removeRecord}>
+                                            <lightning-icon icon-name={iconName} variant="circle" alternative-text="icon"></lightning-icon>
+                                        </lightning-pill>
+                                        </span>
+                                    </template>
+                                </div>
+                            </template> 
+                        
+                            <!-- Second part display result -->
+                                <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox" onmouseover={handleDropdownHoverIn} onmouseenter={handleDropdownHoverIn} onmouseleave ={handleDropdownHoverOut}>
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                          <!-- show more data and seoparator comes heree -->
+                                       <!-- Show More Data -->
+                                        <div if:true={showMoreDataOption}>
+                                       <li role="presentation" class="slds-listbox__item">
+                                        <div class="slds-media slds-listbox__option slds-listbox__option_entity" role="option" onclick={showMoreData}>
+                                            <span class="slds-media__figure">
+                                                <lightning-icon icon-name="utility:search" size="xx-small" alternative-text="Search Icon"></lightning-icon>
+                                            </span>
+                                            <span class="slds-media__body">
+                                                <span class="slds-listbox__option-text slds-listbox__option-text_entity">Show more results for '{enteredText}' </span>
+                                            </span>
+                                        </div>
+                                    </li>
+                        
+                                    <!-- Separator -->
+                                    <li role="presentation" class="slds-listbox__item" style="margin: 0;">
+                                        <hr class="slds-has-divider_top-space" style="margin: 0;">
+                                    </li>
+                                    <!-- end -->
+                                    </div>
+                                        <template if:false={LoadingText} for:each={searchRecords} for:item="serecord">
+                                            <li role="presentation" class="slds-listbox__item" key={serecord.Id}>                                                
+                                                <div data-id={serecord.Id} onclick={setSelectedRecord} style="align-items: center;" class="slds-media slds-listbox__option slds-listbox__option_entity" role="option">
+                                                    <span class="slds-media__figure">
+                                                        <span class="slds-icon_container">
+                                                            <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+                                                        </span>
+                                                    </span>
+                                                    <span class="slds-media__body">
+                                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">{serecord.optHeading}</span>
+                                                        <template if:true={serecord.optMetaText}><span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{serecord.optMetaText}</span></template>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            {textLengthRestrictionMsg}
+                            <div if:true={messageFlag}>
+                                {noResultMsg}
+                            </div>
+                            <div if:true={LoadingText}>
+                                Loading...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </span>
+    <!-- Popup -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <!-- Popup Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">{headerLabel}</h2>
+                </header>
+    
+                <!-- Body -->
+                <div class="slds-modal__content slds-p-around_medium" >
+                     <!-- spinner -->
+                     <div if:true={isLoading}  class="slds-is-absolute slds-align_absolute-center" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                     </div>
+                    <!-- Search Box -->
+                    <div class="slds-form-element slds-p-bottom_medium slds-col slds-size_1-of-4">
+                        <label class="slds-form-element__label" for="search-input">
+                            {Label}
+                        </label>
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <lightning-icon 
+                                icon-name="utility:search" 
+                                size="x-small" 
+                                class="slds-input__icon slds-input__icon_left"
+                            ></lightning-icon>
+                            <lightning-input 
+                            class="searchBox leftspace" 
+                            name="searchText" 
+                            label={Label} 
+                            type="search" 
+                            variant={labelVariant} 
+                            data-id="userinput" 
+                            placeholder={searchBoxPlaceHolder} 
+                            value={searchText} 
+                            onfocus={handleSearch} 
+                            onchange={handleSearchInput}
+                            onblur={handleBlur} 
+                            ></lightning-input>
+                        </div>
+                    </div>
+    
+              
+                    <div class="slds-card">
+                        <!-- Header Article -->
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate slds-p-around_large" 
+                                    style="border-radius: 5px; overflow: hidden; background-color: #f3f2f2; width: 100%; margin-bottom: -10px;">
+                                <div class="slds-media__figure">
+                    
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-page-header__name">
+                                        <div class="slds-page-header__name-title">
+                                            <h1>
+                                                <span class="slds-text-heading_small slds-text-align_left" 
+                                                      style="font-weight: bold; text-align: left; display: block;">{Label}</span>
+                                            </h1>
+                                            <div class="slds-grid slds-grid_align-start slds-m-top_small">
+                                                <p class="slds-text-body_regular" style="margin: 0;">
+                                                    {noOfRecords}
+                                                </p>
+                                                <div  if:true={showSortBy} class="slds-m-left_small">
+                                                    <label for="sortOptions" class="slds-assistive-text">Sort Options</label>
+                                                    <select id="sortOptions" class="slds-select slds-m-left_small" style="height: 20px; padding: 2px 5px; font-size: 0.70rem; margin-left: 0;" onchange={handleSelection}>
+                                                        <template for:each={options} for:item="option">
+                                                            <option value={option.value} key={option.value}>
+                                                            {option.label}
+                                                            </option>
+                                                        </template> 
+                                                    </select>
+                                                </div>
+                                                <!-- enddd -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+                        </div>
+                        <!-- Data Table --> 
+                        <div class="slds-card__body slds-card__body_inner">
+                            <c-my-types
+                                key-field="Id"
+                                data-record="Id"
+                                data={searchResults}
+                                columns={columnData}
+                                hide-checkbox-column
+                                wrap-table-header = "true"
+                                onrowaction={handleRowAction}>
+                            </c-my-types>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- </lightning-card> -->
+</template>
