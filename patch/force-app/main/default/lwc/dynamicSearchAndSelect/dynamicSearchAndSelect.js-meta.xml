@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Single/Multi Lookup</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <!-- <target>lightning__AppPage</target> -->
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            
+            <!-- Input Variables -->
+            <property required="true" name="Label" label="I00_Label" type="String" role="inputOnly"/>
+            <property required="true" name="objectName" label="I01_Object API Name" type="String" role="inputOnly" description="Enter Object API Name"/>
+            <property required="true" name="searchFieldNames" label="I02_Field API Names to search" type="String" role="inputOnly" description="Enter comma separated field API Names or a text type variable containing comma separated field API Names of the fields by which you want to search the records."/>
+            <property required="true" name="queryFieldNames" label="I03_Field API Names to query" type="String" role="inputOnly" description="Enter comma separated field API Names or a text type variable containing comma separated field API Names of the fields, you want to query. NOTE: Enter exact API Names(or copy/paste from object) because it is case sensitive. i.e 'name' and 'Name' are different."/>
+            <property required="true" name="dropdownOptionFields" label="I04_Fields to display in dropdown option" type="String" role="inputOnly" description="Enter any two field nos.(as per the sequence in field API Name List starting from 1) separated by comma to display in option in the selection dropdown. eg: 1,2 or 2,4 {here 1 represents 1st field}(NOTE: Ignore 'Id' field, it is not counted in the sequence, though 0 can be used to represent 'Id' field)"/>
+            <property required="true" name="selectedRecordRepresentation" label="I05_Selected Record Representation" type="String" role="inputOnly" description="Enter the field no.(as per the sequence in field API Name List starting from 1) in the way you want to represent the selected record. eg: 1(3, 5) or 1:2 {here 1 represents 1st field}(NOTE: Ignore 'Id' field, it is not counted in the sequence, though 0 can be used to represent 'Id' field). Any two field nos. must be separated by space or any other character."/>            
+            <property required="true" name="iconName" label="I06_Icon Name" type="String" role="inputOnly" description="eg: standard:account or utility:warning or custom:custom33 or doctype:audio or action:delete"/>
+            <property name="required" label="I07_Required" type="Boolean" role="inputOnly" description="True or False"/>
+            <property name="flowErrorMsg" label="I08_Error Msg" type="String" role="inputOnly" description="Error Msg if required is true"/>
+            <property name="minSearchTxtLen" label="I09_Minimum Search Text Length" type="Integer" role="inputOnly" description="Text Length to start search eg: 0 or 1 (default is 3)"/>
+            <property name="selectionCriteria" label="I10_Selection Criteria" type="String" role="inputOnly" description="Enter 'm' for multiple selection behavior And 's' for single selection behavior. By default it works as a single selection."/>
+            <property name="recordsExcluded" label="I11_Records to be excluded" type="String" role="inputOnly" description="Enter comma separated Ids or a text type variable containing comma separated Ids of the records that you want to exclude."/>
+            <property name="whereClause" label="I12_Where Clause additional conditions" type="String" role="inputOnly" description="Enter additional conditions for query."/>
+            <property name="placeholder" label="I13_Placeholder" type="String" role="inputOnly"/>
+            <property name="autocomplete" label="I14_Autocompletion hint" type="String" role="inputOnly" description="Enter off or on"/>
+            <property name="limit" label="I15_Query Limit" type="Integer" role="inputOnly"/>
+            <property name="orderBy" label="I16_Order By" type="String" role="inputOnly"/>
+            <property name="disabled" label="I17_Disabled" type="Boolean" role="inputOnly"/>
+            <property name="textLengthRestrictionMsg" label="I18_Search Text Length Restriction Msg" type="String" role="inputOnly"/>
+            <property name="noResultMsg" label="I19_No Result Msg" type="String" role="inputOnly"/>
+            <property name="hasEncryptedFieldSearch" label="I20_Has Encrypted Field Search" type="Boolean" role="inputOnly"/>
+            
+            <!-- Output Variables -->
+            <property name="finalSelId" type="String" label="Selected Record Ids" description="Comma separated Ids of Selected Records"/>
+            <property name="finalSelIdList" type="String[]" role="outputOnly" label="Selected Record Id List" description="List of Ids of Selected Records"/>
+        </targetConfig>
+        <!--         
+        <targetConfig targets="lightning__AppPage">
+            
+            
+            <property required="true" name="Label" label="Label" type="String"/>
+            <property required="true" name="objectName" label="Object API Name" type="String" description="Enter Object API Name"/>
+            <property required="true" name="fieldNameList" label="List of field API Names" type="String[]" description="Enter a text type collection variable containing a list of field API Names by which you want to search the records."/>
+            <property name="selectionCriteria" type="String" label="Selection Criteria" description="Enter 'm' for multiple selection behavior And 's' for single selection behavior. By default it works as a single selection."/>
+            <property required="true" name="selectedRecordRepresentation" type="String" label="Selected Record Representation" description="Enter the field no.(as per the sequence in field API Name List starting from 1) in the way you want to represent the selected record. eg: 1(3, 5) or 1:2 {here 1 represents 1st field}(NOTE: Ignore 'Id' field, it is not counted in the sequence, though 0 can be used to represent 'Id' field). Any two field nos. must be separated by space or any other character."/>            
+            <property required="true" name="iconName" label="Icon Name" type="String" description="eg: standard:account or utility:warning or custom:custom33 or doctype:audio or action:delete"/>
+            <property name="recordsExcluded" label="Records to be excluded" type="String[]" description="Enter a text type collection variable containing a list of Ids of the records that you want to exclude."/>
+            <property required="true" name="dropdownOptionFields" label="Fields to display in dropdown option" type="String" description="Enter any two field nos.(as per the sequence in field API Name List starting from 1) separated by comma to display in option in the selection dropdown. eg: 1,2 or 2,4 {here 1 represents 1st field}(NOTE: Ignore 'Id' field, it is not counted in the sequence, though 0 can be used to represent 'Id' field)"/>
+            
+            
+            <property name="finalSelId" type="String" label="Selected Records" description="Comma separated Ids of Selected Records"/>
+        </targetConfig> -->
+    </targetConfigs>
+</LightningComponentBundle>
