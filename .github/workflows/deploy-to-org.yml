@@ -64,4 +64,5 @@ jobs:
         if: ${{ env.APEX_TESTS == 'None' }}
         run: |
              git branch --show-current
-             sfdx force:source:deploy --manifest "manifest/package.xml" --postdestructivechanges "manifest/destructiveChangesPost.xml" -l NoTestRun --verbose   
+             sfdx force:source:deploy --manifest "manifest/package.xml" --postdestructivechanges "manifest/destructiveChangesPost.xml" -l NoTestRun --verbose 
+               
